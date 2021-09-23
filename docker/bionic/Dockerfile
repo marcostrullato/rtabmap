@@ -1,6 +1,10 @@
 # Image: introlab3it/rtabmap:bionic
 
-FROM ros:melodic-perception
+FROM images.strullato.com:8080/ros-melodic-jetson:1.0 
+
+# Install perception packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-melodic-perception
 
 # Install build dependencies
 RUN apt-get update && \
