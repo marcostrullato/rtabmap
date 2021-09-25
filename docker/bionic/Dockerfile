@@ -2,6 +2,9 @@
 
 FROM images.strullato.com:8080/ros-melodic-jetson:1.0 
 
+
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
 # Install perception packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-melodic-perception
@@ -69,13 +72,13 @@ RUN cd assimp && \
     make install && \
     cd && \
     rm -r assimp
-RUN git clone https://github.com/alicevision/geogram.git
+RUN git clone https://github.com/marcostrullato/geogram.git
 RUN cd geogram && \
-    git checkout v1.7.6 && \
+    git checkout v1.7.6-JetsonNano && \
     wget https://gist.githubusercontent.com/matlabbe/1df724465106c056ca4cc195c81d8cf0/raw/346304b279c3e9dd59e75dd31155eb1aff91785e/geogram_8b2ae61.patch && \
     git apply geogram_8b2ae61.patch && \
     ./configure.sh && \
-    cd build/Linux64-gcc-dynamic-Release && \
+    cd build/Linux64-gcc-Jetson-Release && \
     make -j$(nproc) && \
     make install && \
     cd && \
