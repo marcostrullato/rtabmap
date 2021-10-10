@@ -88,25 +88,25 @@ RUN wget -nv https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.
     tar -xzf cmake-3.21.3-linux-aarch64.tar.gz && \
     rm cmake-3.21.3-linux-aarch64.tar.gz
 RUN git clone https://github.com/marcostrullato/AliceVision.git --recursive
-#RUN cd AliceVision && \
-#    git checkout 0f6115b6af6183c524aa7fcf26141337c1cf3872 && \
-#    wget https://gist.githubusercontent.com/matlabbe/1df724465106c056ca4cc195c81d8cf0/raw/346304b279c3e9dd59e75dd31155eb1aff91785e/alicevision_0f6115b.patch && \
-#    git apply alicevision_0f6115b.patch && \
-#    mkdir build && \
-#    cd build && \
-#    ../../cmake-3.21.3-linux-aarch64/bin/cmake -DALICEVISION_USE_CUDA=ON -DALICEVISION_USE_APRILTAG=OFF -DALICEVISION_BUILD_SOFTWARE=OFF .. && \
-#    make -j$(nproc) && \
-#    make install && \
-#    cd && \
-#    rm -r AliceVision
+    #git checkout 0f6115b6af6183c524aa7fcf26141337c1cf3872 && \
+    #wget https://gist.githubusercontent.com/matlabbe/1df724465106c056ca4cc195c81d8cf0/raw/346304b279c3e9dd59e75dd31155eb1aff91785e/alicevision_0f6115b.patch && \
+    #git apply alicevision_0f6115b.patch && \
+RUN cd AliceVision && \
+    mkdir build && \
+    cd build && \
+    ../../cmake-3.21.3-linux-aarch64/bin/cmake -DALICEVISION_USE_CUDA=OFF -DALICEVISION_USE_APRILTAG=OFF -DALICEVISION_BUILD_SOFTWARE=OFF .. && \
+    make  && \
+    make install && \
+    cd && \
+    rm -r AliceVision
 
-## Clone source code
-#ARG CACHE_DATE=2016-01-01
-#RUN git clone https://github.com/marcostrullato/rtabmap.git
+# Clone source code
+ARG CACHE_DATE=2016-01-01
+RUN git clone https://github.com/marcostrullato/rtabmap.git
 
-#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-## Build RTAB-Map project
+# Build RTAB-Map project
 #RUN source /ros_entrypoint.sh && \
 #    cd rtabmap/build && \
 #    ../../cmake-3.21.3-linux-aarch64/bin/cmake -DWITH_ALICE_VISION=ON .. && \
